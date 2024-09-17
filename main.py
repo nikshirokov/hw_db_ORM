@@ -30,12 +30,12 @@ for record in data:
     session.add(model(id=record.get('pk'), **record.get('fields')))
 session.commit()
 # запросы
-writer = input('Input writer name or id: ')
+publisher = input('Input publisher or id: ')
 query = session.query(Book.title, Shop.name, Sale.price, Sale.date_sale).join(Publisher).join(Stock).join(Shop).join(
     Sale)
-if writer.isdigit():
-    query = query.filter(Publisher.id == writer).all()
+if publisher.isdigit():
+    query = query.filter(Publisher.id == publisher).all()
 else:
-    query = query.filter(Publisher.name == writer).all()
+    query = query.filter(Publisher.name == publisher).all()
 for title, name, price, date_sale in query:
     print(f"{title:<40} | {name:<10} | {price:<8} | {date_sale}")
